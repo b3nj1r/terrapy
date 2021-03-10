@@ -1,9 +1,27 @@
 import numpy as np
+import polyline as pl
 import requests
 
-# request height data from opentopodata
-loc= '32,-97 | 32.1, -97 | 32.2, -97 | 32.3, -97 | 32.4, -97 | 32.5, -97 | 32.6, -97 | 32.7, -97 | 32.8, -97 | 32.9, -97 | 33, -97'
 
+def gen_map(o,x,y,a):
+    
+    # obtain pair values
+    xs = np.arange(o[0],o[0]+x,1/a)
+    ys = np.arange(o[1],o[1]+y,1/a)
+    
+    # format pairs
+    result = []
+    for i in xs:
+        for j in ys:
+            result.append( (i,j) )
+    # return google polyline format
+    return(pl.encode(result))
+
+
+# generate coordinate pairs
+loc = gen_map([32,-97],10,10,1)
+
+# request height data from opentopodata
 params = {'locations':loc,'interpolation':'cubic'}
 url = 'https://api.opentopodata.org/v1/ned10m'
 r = requests.get(url,params=params)
