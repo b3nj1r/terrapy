@@ -4,11 +4,11 @@ import requests
 
 
 def gen_map(o,x,y,a):
-    
+
     # obtain pair values
-    xs = np.arange(o[0],o[0]+x,1/a)
-    ys = np.arange(o[1],o[1]+y,1/a)
-    
+    xs = np.arange(o[0],o[0]+x,0.1*a)
+    ys = np.arange(o[1],o[1]+y,0.1*a)
+
     # format pairs
     result = []
     for i in xs:
@@ -19,7 +19,7 @@ def gen_map(o,x,y,a):
 
 
 # generate coordinate pairs
-loc = gen_map([32,-97],10,10,1)
+loc = gen_map([36,-94],5,5,5)
 
 # request height data from opentopodata
 params = {'locations':loc,'interpolation':'cubic'}
